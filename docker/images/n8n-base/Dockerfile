@@ -3,6 +3,9 @@ ARG NODE_VERSION=22.23.4
 # 1. Use a builder step to download various dependencies
 FROM node:${NODE_VERSION}-alpine AS builder
 
+# Remove distrusted CAs before any HTTPS downloads in the build.
+RUN apk add --no-cache --upgrade ca-certificates && update-ca-certificates
+
 # Install fonts
 RUN	\
 	apk --no-cache add --virtual fonts msttcorefonts-installer fontconfig && \

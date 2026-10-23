@@ -2,7 +2,7 @@
 FROM node:22.23.4 AS base
 
 # Install required dependencies
-RUN apt-get update && apt-get install -y gnupg2 curl
+RUN apt-get update && apt-get install -y gnupg2 curl ca-certificates && update-ca-certificates
 
 # Add k6 GPG key and repository
 RUN mkdir -p /etc/apt/keyrings && \
