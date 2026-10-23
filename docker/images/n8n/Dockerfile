@@ -1,5 +1,6 @@
-ARG NODE_VERSION=20
-FROM n8nio/base:${NODE_VERSION}
+ARG NODE_VERSION=22.23.4
+ARG N8N_BASE_IMAGE=ghcr.io/julianchoo/base:${NODE_VERSION}
+FROM ${N8N_BASE_IMAGE}
 
 ARG N8N_VERSION
 RUN if [ -z "$N8N_VERSION" ] ; then echo "The N8N_VERSION argument is missing!" ; exit 1; fi

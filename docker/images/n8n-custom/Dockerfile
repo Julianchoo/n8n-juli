@@ -1,7 +1,8 @@
-ARG NODE_VERSION=20
+ARG NODE_VERSION=22.23.4
+ARG N8N_BASE_IMAGE=ghcr.io/julianchoo/base:${NODE_VERSION}
 
 # 1. Create an image to build n8n
-FROM --platform=linux/amd64 n8nio/base:${NODE_VERSION} AS builder
+FROM --platform=linux/amd64 ${N8N_BASE_IMAGE} AS builder
 
 # Build the application from source
 WORKDIR /src
@@ -21,7 +22,7 @@ RUN mkdir /compiled
 RUN NODE_ENV=production DOCKER_BUILD=true pnpm --filter=n8n --prod --no-optional --legacy deploy /compiled
 
 # 2. Start with a new clean image with just the code that is needed to run n8n
-FROM n8nio/base:${NODE_VERSION}
+FROM ${N8N_BASE_IMAGE}
 ENV NODE_ENV=production
 
 ARG N8N_RELEASE_TYPE=dev
